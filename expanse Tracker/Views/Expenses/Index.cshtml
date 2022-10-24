@@ -1,0 +1,71 @@
+﻿@model expanse_Tracker.Models.multipletable
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Expenses</h1>
+
+<div class="row">
+    <div class="col-12 m-2">
+        <div class="container">
+            <a asp-action="Create" class="btn btn-primary fa fa-plus" title="Create new Expanses">+</a>
+        </div>
+       
+        <form method="post">
+            Stardate: <input type="date" name="startdate" />
+            Enddate: <input type="date" name="enddate" />
+            <input type="button" class="btn btn-outline-success" value="search" />
+            <a asp-action="Index" class="btn-light">Get All Records</a>
+            <table class="table table-bordered table-striped">
+                <thead class="bg-info">
+                    <tr>
+
+                        <th>
+                            Date
+
+                        </th>
+                        <th>
+                            Amount
+
+                        </th>
+                        <th>
+                            Expense Category
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Expanses)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Expense_Category.CategoryName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="Expenses" asp-route-id="@item.ExpansesId" class="btn btn-outline-secondary">Edit</a>
+
+                                <a asp-action="Delete" asp-controller="Expenses" asp-route-id="@item.ExpansesId" class="btn btn-outline-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+      
+
+        <div class="container">
+            <span>Total Expense List: @Model.Expanses.Count()</span>
+
+        </div>
+       
+    </div>
+</div>
+
